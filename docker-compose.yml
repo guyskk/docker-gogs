@@ -1,0 +1,17 @@
+version: '2'
+services:
+  gogs:
+    image: gogs/gogs
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+      - ./gogs:/data
+  mysql:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf
+      - ./mysql:/var/lib/mysql
